@@ -1,32 +1,46 @@
-using System.Diagnostics;
+// Controllers/HomeController.cs
 using Microsoft.AspNetCore.Mvc;
-using Polizia_Municipale.Models;
+using Polizia_Municipale.Services;
 
 namespace Polizia_Municipale.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService _homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHomeService homeService)
         {
-            _logger = logger;
+            _homeService = homeService;
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                var dashboard = await _homeService.GetDashboardDataAsync();
+                return View(dashboard);
+            }
+            catch (Exception ex)
+            {
+
+
+                TempData["ErrorMessage"] = "Errore nel caricamento della dashboard. Riprova più tardi.";
+                return View();
+            }
         }
+
 
         public IActionResult Privacy()
         {
             return View();
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

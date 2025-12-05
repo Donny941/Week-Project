@@ -9,6 +9,43 @@
         <i class="bi bi-speedometer2"></i> Dashboard Polizia Municipale
     </h1>
 
+
+    <!-- Riepilogo Statistiche -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-primary">@(Model?.VerbaliPerTrasgressore?.Sum(x => x.TotaleVerbali) ?? 0)</h3>
+                    <p class="mb-0">Totale Verbali</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-danger">@(Model?.PuntiPerTrasgressore?.Sum(x => x.TotalePunti) ?? 0)</h3>
+                    <p class="mb-0">Totale Punti Decurtati</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-warning">@(Model?.ViolazioniOltre10Punti?.Count() ?? 0)</h3>
+                    <p class="mb-0">Violazioni Gravi</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-success">€@(Model?.ViolazioniOltre400Euro?.Sum(x => x.Importo).ToString("N2") ?? "0.00")</h3>
+                    <p class="mb-0">Importo Violazioni >€400</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Sezione 1: Totale Verbali per Trasgressore -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
@@ -213,39 +250,4 @@
         </div>
     </div>
 
-    <!-- Riepilogo Statistiche -->
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card text-center bg-light">
-                <div class="card-body">
-                    <h3 class="text-primary">@(Model?.VerbaliPerTrasgressore?.Sum(x => x.TotaleVerbali) ?? 0)</h3>
-                    <p class="mb-0">Totale Verbali</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center bg-light">
-                <div class="card-body">
-                    <h3 class="text-danger">@(Model?.PuntiPerTrasgressore?.Sum(x => x.TotalePunti) ?? 0)</h3>
-                    <p class="mb-0">Totale Punti Decurtati</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center bg-light">
-                <div class="card-body">
-                    <h3 class="text-warning">@(Model?.ViolazioniOltre10Punti?.Count() ?? 0)</h3>
-                    <p class="mb-0">Violazioni Gravi</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center bg-light">
-                <div class="card-body">
-                    <h3 class="text-success">€@(Model?.ViolazioniOltre400Euro?.Sum(x => x.Importo).ToString("N2") ?? "0.00")</h3>
-                    <p class="mb-0">Importo Violazioni >€400</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

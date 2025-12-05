@@ -1,17 +1,24 @@
-/* wwwroot/css/site.css */
+﻿/* wwwroot/css/site.css - Dashboard Polizia Municipale */
 
-/* === VARIABILI COLORI === */
+/* === VARIABILI COLORI POLIZIA MUNICIPALE === */
 :root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --info-color: #0dcaf0;
-    --light-bg: #f8f9fa;
-    --dark-text: #212529;
-    --border-color: #dee2e6;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Colori istituzionali */
+    --primary-color: #1e3a8a; /* Blu istituzionale scuro */
+    --secondary-color: #3b82f6; /* Blu medio */
+    --accent-color: #ef4444; /* Rosso emergenze */
+    --success-color: #10b981; /* Verde operazioni completate */
+    --warning-color: #f59e0b; /* Arancione allerte */
+    --danger-color: #dc2626; /* Rosso urgenze */
+    --info-color: #06b6d4; /* Azzurro informazioni */
+    /* Sfondo e testo */
+    --light-bg: #f1f5f9;
+    --dark-bg: #0f172a;
+    --dark-text: #1e293b;
+    --light-text: #ffffff;
+    /* Bordi e ombre */
+    --border-color: #cbd5e1;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* === RESET E BASE === */
@@ -28,116 +35,172 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--dark-text);
-    background-color: var(--light-bg);
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     line-height: 1.6;
-    margin-bottom: 60px; /* Spazio per il footer */
+    margin-bottom: 60px;
 }
 
-/* === NAVBAR === */
+/* === NAVBAR ISTITUZIONALE === */
 .navbar {
-    box-shadow: var(--shadow);
-    padding: 1rem 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+    box-shadow: var(--shadow-strong);
+    padding: 0.75rem 0;
+    border-bottom: 4px solid var(--accent-color);
 }
 
 .navbar-brand {
     font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--primary-color) !important;
-    transition: color 0.3s ease;
+    font-size: 1.4rem;
+    color: var(--light-text) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
     .navbar-brand:hover {
-        color: var(--info-color) !important;
+        color: var(--warning-color) !important;
+        transform: scale(1.05);
+    }
+
+    .navbar-brand::before {
+        content: '🚔';
+        font-size: 1.5rem;
     }
 
 .nav-link {
-    font-weight: 500;
-    padding: 0.5rem 1rem !important;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     transition: all 0.3s ease;
     position: relative;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
 }
 
     .nav-link:hover {
-        color: var(--primary-color) !important;
+        color: var(--warning-color) !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
     }
 
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background-color: var(--primary-color);
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-    }
-
-    .nav-link:hover::after {
-        width: 80%;
+    .nav-link.active {
+        color: var(--warning-color) !important;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
     }
 
 /* === CONTENITORE PRINCIPALE === */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
 }
 
 main {
     min-height: calc(100vh - 160px);
-    padding: 2rem 0;
+    padding: 2.5rem 0;
 }
 
 /* === TITOLI === */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--dark-text);
+h1, h2, h3, h4, h6 {
+    color: var(--primary-color);
     margin-bottom: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 h1 {
     font-size: 2.5rem;
-    border-bottom: 3px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    border-bottom: 4px solid var(--accent-color);
+    padding-bottom: 0.75rem;
     display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--primary-color);
+    text-transform: uppercase;
 }
 
-/* === CARDS === */
+/* === CARDS OPERATIVE === */
 .card {
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     overflow: hidden;
     margin-bottom: 1.5rem;
+    background-color: white;
+    border-left: 5px solid var(--primary-color);
 }
 
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-strong);
+        border-left-color: var(--accent-color);
     }
 
 .card-header {
-    font-weight: 600;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-bottom: none;
     padding: 1rem 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
 }
 
 .card-body {
     padding: 1.5rem;
 }
 
-/* === TABELLE === */
+/* === STATISTICHE DASHBOARD === */
+.card.bg-light {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    border-left: 5px solid var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+    .card.bg-light:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-strong);
+    }
+
+    .card.bg-light h3 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+/* Card per emergenze */
+.card.bg-danger {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+    border-left-color: var(--danger-color);
+}
+
+.card.bg-warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+    border-left-color: var(--warning-color);
+}
+
+.card.bg-success {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%) !important;
+    border-left-color: var(--success-color);
+}
+
+/* === TABELLE OPERATIVE === */
 .table-responsive {
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-strong);
+    background-color: white;
 }
 
 .table {
@@ -146,57 +209,93 @@ h2 {
 }
 
     .table thead {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
         color: white;
     }
 
         .table thead th {
             border: none;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             padding: 1rem;
+            border-bottom: 3px solid var(--accent-color);
+            color: white !important;
         }
 
     .table tbody tr {
-        transition: background-color 0.2s ease;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
     }
 
         .table tbody tr:hover {
-            background-color: rgba(13, 110, 253, 0.05);
+            background-color: #dbeafe;
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
         }
 
     .table td {
         vertical-align: middle;
         padding: 1rem;
         border-color: var(--border-color);
+        font-weight: 500;
     }
 
-/* === BADGES === */
+/* === BADGES STATUS === */
 .badge {
-    padding: 0.5rem 0.75rem;
-    font-weight: 500;
-    font-size: 0.875rem;
-    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* === BOTTONI === */
+.badge-primary {
+    background-color: var(--primary-color);
+}
+
+.badge-danger {
+    background-color: var(--danger-color);
+    animation: pulse 2s infinite;
+}
+
+.badge-warning {
+    background-color: var(--warning-color);
+    color: var(--dark-text);
+}
+
+.badge-success {
+    background-color: var(--success-color);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* === BOTTONI OPERATIVI === */
 .btn {
-    padding: 0.6rem 1.5rem;
-    font-weight: 500;
+    padding: 0.7rem 1.8rem;
+    font-weight: 600;
     border-radius: 8px;
     transition: all 0.3s ease;
     border: none;
     text-transform: uppercase;
     font-size: 0.875rem;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    box-shadow: var(--shadow);
 }
 
     .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-strong);
     }
 
     .btn:active {
@@ -204,12 +303,28 @@ h2 {
     }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
 }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
     }
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #b91c1c 100%);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #d97706 100%);
+    color: white;
+}
 
 .btn i {
     margin-right: 0.5rem;
@@ -221,56 +336,88 @@ h2 {
     border: 2px solid var(--border-color);
     padding: 0.75rem 1rem;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
     .form-control:focus, .form-select:focus {
         border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+        box-shadow: 0 0 0 0.3rem rgba(30, 58, 138, 0.15);
     }
 
 .form-label {
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--dark-text);
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
 }
 
-/* === ALERT === */
+/* === ALERT OPERATIVE === */
 .alert {
     border: none;
+    border-left: 5px solid;
     border-radius: 8px;
     padding: 1rem 1.5rem;
     box-shadow: var(--shadow);
     animation: slideIn 0.5s ease;
+    font-weight: 500;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    border-left-color: var(--danger-color);
+    color: #991b1b;
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    border-left-color: var(--warning-color);
+    color: #92400e;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    border-left-color: var(--success-color);
+    color: #065f46;
+}
+
+.alert-info {
+    background-color: #cffafe;
+    border-left-color: var(--info-color);
+    color: #164e63;
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateX(-20px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 
-/* === FOOTER === */
+/* === FOOTER ISTITUZIONALE === */
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 60px;
     line-height: 60px;
-    background-color: white;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);
     text-align: center;
+    color: var(--light-text);
+    border-top: 3px solid var(--accent-color);
 }
 
     .footer a {
-        color: var(--primary-color);
+        color: var(--warning-color);
         text-decoration: none;
-        font-weight: 500;
+        font-weight: 600;
         transition: color 0.3s ease;
     }
 
@@ -279,23 +426,7 @@ h2 {
             text-decoration: underline;
         }
 
-/* === STATISTICHE DASHBOARD === */
-.card.bg-light {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
-    transition: all 0.3s ease;
-}
-
-    .card.bg-light:hover {
-        transform: scale(1.05);
-    }
-
-    .card.bg-light h3 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-/* === ICONE BOOTSTRAP === */
+/* === ICONE === */
 .bi {
     font-size: 1.2rem;
     vertical-align: middle;
@@ -304,11 +435,11 @@ h2 {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .card-body {
@@ -316,22 +447,36 @@ h2 {
     }
 
     .table {
-        font-size: 0.875rem;
+        font-size: 0.85rem;
     }
 
     .btn {
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
     }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .card.bg-light h3 {
+        font-size: 2rem;
+    }
 }
 
-/* === UTILIT� === */
+/* === UTILITÀ === */
 .text-muted {
-    color: #6c757d !important;
+    color: #64748b !important;
 }
 
 .gap-2 {
     gap: 0.5rem !important;
+}
+
+.text-urgent {
+    color: var(--danger-color);
+    font-weight: 700;
+    animation: pulse 2s infinite;
 }
 
 /* === ANIMAZIONI === */
@@ -347,4 +492,29 @@ h2 {
 
 .table tbody tr {
     animation: fadeIn 0.5s ease;
+}
+
+/* === BARRA DI STATO OPERATIVO === */
+.status-bar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+}
+
+/* === INDICATORI PRIORITÀ === */
+.priority-high {
+    border-left: 5px solid var(--danger-color) !important;
+}
+
+.priority-medium {
+    border-left: 5px solid var(--warning-color) !important;
+}
+
+.priority-low {
+    border-left: 5px solid var(--success-color) !important;
 }
