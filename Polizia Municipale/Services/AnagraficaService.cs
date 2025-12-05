@@ -3,10 +3,10 @@ using Polizia_Municipale.Models.Entities;
 
 namespace Polizia_Municipale.Services
 {
-    public class AnagraficaSevice : ServiceBase
+    public class AnagraficaService : ServiceBase
     {
 
-        public AnagraficaSevice(AppDbContext appDbContext) : base(appDbContext) { }
+        public AnagraficaService(AppDbContext appDbContext) : base(appDbContext) { }
 
 
         public async Task<List<Anagrafica>> VediAnagrafiche()

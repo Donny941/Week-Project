@@ -9,15 +9,12 @@ namespace Polizia_Municipale.Controllers
 {
     public class AnagraficaController : Controller
     {
-        private readonly AnagraficaSevice _anagraficaService;
+        private readonly AnagraficaService _anagraficaService;
 
 
 
-        public IActionResult Crea()
-        {
-            return View(new AnagraficaViewModel());
-        }
-        public AnagraficaController(AnagraficaSevice anagraficaService)
+
+        public AnagraficaController(AnagraficaService anagraficaService)
         {
             _anagraficaService = anagraficaService;
         }
@@ -26,7 +23,7 @@ namespace Polizia_Municipale.Controllers
         {
             List<Anagrafica> anagrafiche = await _anagraficaService.VediAnagrafiche();
 
-            List<AnagraficaViewModel> anagraficaViewModels = anagrafiche.Select(
+            List<AnagraficaViewModel> anagraficheViewModels = anagrafiche.Select(
                 a => new AnagraficaViewModel()
                 {
                     Id = a.Id,
@@ -39,7 +36,12 @@ namespace Polizia_Municipale.Controllers
                 }
                 ).ToList();
 
-            return View(anagraficaViewModels);
+            return View(anagraficheViewModels);
+        }
+
+        public IActionResult Crea()
+        {
+            return View(new AnagraficaViewModel());
         }
         [HttpPost]
         public async Task<IActionResult> CreaAnagrafica(AnagraficaViewModel anagraficaViewModel)

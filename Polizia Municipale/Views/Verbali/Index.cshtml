@@ -1,0 +1,89 @@
+﻿
+@model IEnumerable<Polizia_Municipale.ViewModels.VerbaleViewModel>
+@{
+    ViewData["Title"] = "Verbali";
+    var successMessage = TempData["SuccessMessage"];
+    var errorMessage = TempData["ErrorMessage"];
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Registro Verbali</h2>
+
+    @if (successMessage is not null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @successMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (errorMessage is not null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @errorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Verbali" asp-action="Crea" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Crea Nuovo Verbale
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Data Violazione</th>
+                    <th>Data Trascrizione</th>
+                    <th>Indirizzo</th>
+                    <th>Agente</th>
+                    <th>Importo</th>
+                    <th>Punti</th>
+             
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model?.Any() == true)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DataViolazione.ToString("dd/MM/yyyy")</td>
+                            <td>@item.DataTrascrizioneVerbale.ToString("dd/MM/yyyy")</td>
+                            <td>@item.IndirizzoViolazione</td>
+                            <td>@item.NominativoAgente</td>
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    €@item.Importo.ToString("N2")
+                                </span>
+                            </td>
+                            <td>
+                                @if (item.DecurtamentoPunti > 0)
+                                {
+                                    <span class="badge bg-danger">-@item.DecurtamentoPunti</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                    
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            Nessun verbale trovato.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

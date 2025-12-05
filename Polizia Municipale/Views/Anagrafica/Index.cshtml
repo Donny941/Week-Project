@@ -24,45 +24,41 @@
         </a>
     </div>
 
-   
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cognome)</th>
-                    <th>@Html.DisplayNameFor(model => model.CodiceFiscale)</th>
-                    <th>@Html.DisplayNameFor(model => model.Indirizzo)</th>
-                    <th>@Html.DisplayNameFor(model => model.Citta)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cap)</th>
-                    <th>Azioni</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Codice Fiscale</th>
+                    <th>Indirizzo</th>
+                    <th>Città</th>
+                    <th>CAP</th>
+                   
                 </tr>
             </thead>
             <tbody>
-                @if (Model != null)
+                @if (Model?.Any() == true)
                 {
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Cognome)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CodiceFiscale)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Indirizzo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Citta)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Cap)</td>
-                            <td>
-                               
-                                <a asp-action="Modifica" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white">
-                                    <i class="bi bi-pencil"></i> Modifica
-                                </a>
-                            </td>
+                            <td>@item.Nome</td>
+                            <td>@item.Cognome</td>
+                            <td>@item.CodiceFiscale</td>
+                            <td>@item.Indirizzo</td>
+                            <td>@item.Citta</td>
+                            <td>@item.Cap</td>
+                   
                         </tr>
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="7" class="text-center text-muted">Nessuna anagrafica trovata.</td>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            Nessuna anagrafica trovata.
+                        </td>
                     </tr>
                 }
             </tbody>

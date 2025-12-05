@@ -1,8 +1,251 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Polizia_Municipale.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h1 class="mb-4">
+        <i class="bi bi-speedometer2"></i> Dashboard Polizia Municipale
+    </h1>
+
+    <!-- Sezione 1: Totale Verbali per Trasgressore -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-file-earmark-text"></i> Totale Verbali per Trasgressore
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Cognome</th>
+                            <th>Nome</th>
+                            <th>Codice Fiscale</th>
+                            <th>Totale Verbali</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.VerbaliPerTrasgressore?.Any() == true)
+                        {
+                            @foreach (var item in Model.VerbaliPerTrasgressore)
+                            {
+                                <tr>
+                                    <td>@item.Cognome</td>
+                                    <td>@item.Nome</td>
+                                    <td>@item.CodiceFiscale</td>
+                                    <td>
+                                        <span class="badge bg-info">@item.TotaleVerbali</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-3">
+                                    Nessun dato disponibile
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sezione 2: Totale Punti Decurtati per Trasgressore -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-exclamation-triangle"></i> Totale Punti Decurtati per Trasgressore
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Cognome</th>
+                            <th>Nome</th>
+                            <th>Codice Fiscale</th>
+                            <th>Totale Punti Decurtati</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.PuntiPerTrasgressore?.Any() == true)
+                        {
+                            @foreach (var item in Model.PuntiPerTrasgressore)
+                            {
+                                <tr class="@(item.TotalePunti >= 15 ? "table-danger" : "")">
+                                    <td>@item.Cognome</td>
+                                    <td>@item.Nome</td>
+                                    <td>@item.CodiceFiscale</td>
+                                    <td>
+                                        <span class="badge @(item.TotalePunti >= 15 ? "bg-danger" : "bg-warning")">
+                                            -@item.TotalePunti punti
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-3">
+                                    Nessun dato disponibile
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sezione 3: Violazioni oltre 10 Punti -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">
+                <i class="bi bi-shield-exclamation"></i> Violazioni Gravi (oltre 10 punti)
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Data Violazione</th>
+                            <th>Cognome</th>
+                            <th>Nome</th>
+                            <th>Importo</th>
+                            <th>Punti Decurtati</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.ViolazioniOltre10Punti?.Any() == true)
+                        {
+                            @foreach (var item in Model.ViolazioniOltre10Punti)
+                            {
+                                <tr>
+                                    <td>@item.DataViolazione.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Cognome</td>
+                                    <td>@item.Nome</td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark">
+                                            €@item.Importo.ToString("N2")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            -@item.DecurtamentoPunti punti
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-3">
+                                    Nessuna violazione grave registrata
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sezione 4: Violazioni oltre 400 Euro -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-cash-coin"></i> Violazioni con Importo Superiore a €400
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Data Violazione</th>
+                            <th>Cognome</th>
+                            <th>Nome</th>
+                            <th>Codice Fiscale</th>
+                            <th>Importo</th>
+                            <th>Descrizione Violazione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.ViolazioniOltre400Euro?.Any() == true)
+                        {
+                            @foreach (var item in Model.ViolazioniOltre400Euro)
+                            {
+                                <tr>
+                                    <td>@item.DataViolazione.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Cognome</td>
+                                    <td>@item.Nome</td>
+                                    <td>@item.CodiceFiscale</td>
+                                    <td>
+                                        <span class="badge bg-success">
+                                            €@item.Importo.ToString("N2")
+                                        </span>
+                                    </td>
+                                    <td>@item.DescrizioneViolazione</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-3">
+                                    Nessuna violazione oltre €400
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Riepilogo Statistiche -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-primary">@(Model?.VerbaliPerTrasgressore?.Sum(x => x.TotaleVerbali) ?? 0)</h3>
+                    <p class="mb-0">Totale Verbali</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-danger">@(Model?.PuntiPerTrasgressore?.Sum(x => x.TotalePunti) ?? 0)</h3>
+                    <p class="mb-0">Totale Punti Decurtati</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-warning">@(Model?.ViolazioniOltre10Punti?.Count() ?? 0)</h3>
+                    <p class="mb-0">Violazioni Gravi</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h3 class="text-success">€@(Model?.ViolazioniOltre400Euro?.Sum(x => x.Importo).ToString("N2") ?? "0.00")</h3>
+                    <p class="mb-0">Importo Violazioni >€400</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

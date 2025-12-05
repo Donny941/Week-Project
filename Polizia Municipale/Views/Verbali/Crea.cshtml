@@ -1,0 +1,116 @@
+﻿
+@model Polizia_Municipale.ViewModels.VerbaleViewModel
+@{
+    ViewData["Title"] = "Nuovo Verbale";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>Nuovo Verbale</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreaVerbale" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="DataViolazione" class="form-label">Data Violazione</label>
+                                <input asp-for="DataViolazione" type="date" class="form-control" />
+                                <span asp-validation-for="DataViolazione" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="DataTrascrizioneVerbale" class="form-label">Data Trascrizione</label>
+                                <input asp-for="DataTrascrizioneVerbale" type="date" class="form-control" />
+                                <span asp-validation-for="DataTrascrizioneVerbale" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="IndirizzoViolazione" class="form-label">Indirizzo Violazione</label>
+                        <input asp-for="IndirizzoViolazione" class="form-control" placeholder="Via, numero civico, città" />
+                        <span asp-validation-for="IndirizzoViolazione" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="NominativoAgente" class="form-label">Nominativo Agente</label>
+                        <input asp-for="NominativoAgente" class="form-control" placeholder="Nome e cognome dell'agente" />
+                        <span asp-validation-for="NominativoAgente" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="Importo" class="form-label">Importo (€)</label>
+                                <input asp-for="Importo" type="number" step="0.01" class="form-control" placeholder="Es: 150.00" />
+                                <span asp-validation-for="Importo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="DecurtamentoPunti" class="form-label">Decurtamento Punti</label>
+                                <input asp-for="DecurtamentoPunti" type="number" class="form-control" placeholder="Es: 3" />
+                                <span asp-validation-for="DecurtamentoPunti" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="AnagraficaId" class="form-label">Anagrafica</label>
+                                <select asp-for="AnagraficaId" class="form-select">
+                                    <option value="">-- Seleziona Anagrafica --</option>
+                                    @if (ViewBag.Anagrafiche != null)
+                                    {
+                                        @foreach (var ana in ViewBag.Anagrafiche)
+                                        {
+                                            <option value="@ana.Id">@ana.Cognome @ana.Nome - @ana.CodiceFiscale</option>
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="AnagraficaId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="ViolazioneId" class="form-label">Tipo Violazione</label>
+                                <select asp-for="ViolazioneId" class="form-select">
+                                    <option value="">-- Seleziona Violazione --</option>
+                                    @if (ViewBag.Violazioni != null)
+                                    {
+                                        @foreach (var vio in ViewBag.Violazioni)
+                                        {
+                                            <option value="@vio.Id">@vio.Descrizione</option>
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="ViolazioneId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Salva Verbale
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Annulla
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

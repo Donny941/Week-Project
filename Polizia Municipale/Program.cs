@@ -24,7 +24,11 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(connectionString)
       );
 
-builder.Services.AddScoped<AnagraficaSevice>();
+builder.Services.AddScoped<AnagraficaService>();
+builder.Services.AddScoped<ViolazioniService>();
+builder.Services.AddScoped<VerbaliService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
+
 
 
 var app = builder.Build();
